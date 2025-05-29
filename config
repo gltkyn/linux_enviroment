@@ -1,0 +1,252 @@
+###  bindsym --whole-window $mod+button2     kill
+# i3 configuration of gltkyn
+
+set $ws1                        "1"
+set $ws2                        "2"
+set $ws3                        "3"
+set $ws4                        "4"
+set $wsz                        "5"
+set $wsx                        "6"
+set $wsc                        "7"
+
+set $mod 			  	              Mod4		
+set $smod 			                Shift
+set $left				                h
+set $down				                j
+set $up					                k
+set $right				              l
+# set $terminal 				st -f "Liberation Mono:size=12"
+set $terminal 				          alacritty
+set $browser				            qutebrowser
+set $application_launcher 		  dmenu_run
+set $window_stack			          s
+set $window_tabbed			        w
+set $window_default			        e
+set $window_parent			        a
+set $resize				              r	
+set $fullscreen				          f
+set $wallpaper                  "wallpaper.img"
+
+font ttf-hack-nerd mono 13
+
+gaps                      inner 8
+gaps                      outer 6
+smart_gaps                on
+default_border            pixel 3
+default_floating_border   pixel 2
+
+floating_modifier $mod
+
+# exec_always --no-startup-id feh --bg-fill resim.jpg
+
+
+
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+
+# set primary gruvbox colorscheme colors
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+
+bindsym $mod+y fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 870 25
+
+
+# "Super put":  This types out whatever is in the clipboard as if it had been
+# typed at the keyboard by a human.
+bindsym --release $mod+p exec sleep 1 && xdotool type --clearmodifiers `xclip -selection c -out`
+
+
+
+exec_always wal -R
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec_always --no-startup-id $terminal
+exec_always --no-startup-id unclutter
+exec_always --no-startup-id picom -ieb
+
+bindsym XF86MonBrightnessDown		exec --no-startup-id brightnessctl set 4%-
+bindsym XF86MonBrightnessUp 		exec --no-startup-id brightnessctl set +4%
+
+bindsym XF86AudioRaiseVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +3%      && $refresh_i3status
+bindsym XF86AudioLowerVolume    exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -3%      && $refresh_i3status
+bindsym XF86AudioMute 			    exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@ toggle   && $refresh_i3status
+bindsym XF86AudioMicMute		    exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Take a screenshot upon pressing $mod+p (select an area)
+# bindsym --release $mod+p        exec --no-startup-id import /tmp/latest-screenshot.png
+
+bindsym $mod+Return 			      exec $terminal
+bindsym $mod+t	 			          exec $terminal
+
+bindsym $mod+b 				          exec $browser
+bindsym $mod+$smod+Return 		  exec $browser
+
+bindsym $mod+$smod+q 			            kill
+bindsym --whole-window $mod+button2 	kill
+
+# bindsym $mod+d 				        exec --no-startup-id dmenu_run
+# A more modern dmenu replacement is rofi:
+# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindsym $mod+d                  exec "rofi -modi drun,run -show drun"
+# There also is i3-dmenu-desktop which only displays applications shipping a
+# .desktop file. It is a wrapper around dmenu, so you need that installed.
+# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+$left			focus left
+bindsym $mod+$down	 		focus down
+bindsym $mod+$up	 		  focus up
+bindsym $mod+$right			focus right
+
+no_focus [window_role="pop-up"]
+focus_follows_mouse yes
+
+
+# move focused window
+bindsym $mod+$smod+$left		move left
+bindsym $mod+$smod+$down	    	move down
+bindsym $mod+$smod+$up			move up
+bindsym $mod+$smod+$right	     	move right
+
+# split in orientation
+bindsym $mod+v 				split toggle
+default_orientation auto
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f 				fullscreen toggle
+popup_during_fullscreen smart
+floating_minimum_size 75 x 50
+floating_maximum_size -1 x -1
+
+bindsym $mod+s				layout stacking
+bindsym $mod+w				layout tabbed
+bindsym $mod+e				layout toggle split
+
+bindsym $mod+$smod+space 		floating toggle
+bindsym $mod+space 			focus mode_toggle
+
+bindsym $mod+a	 				focus child
+bindsym $mod+$smod+a 				focus parent
+
+
+
+bindsym $Mod+$smod+e            exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# switch to workspace
+bindsym $mod+1    			                  		workspace number $ws1
+bindsym $mod+2    			                  		workspace number $ws2
+bindsym $mod+3    			                  		workspace number $ws3
+bindsym $mod+4    			                  		workspace number $ws4
+bindsym $mod+z    			                  		workspace number $wsz
+bindsym $mod+x    			                  		workspace number $wsx
+bindsym $mod+c    			                  		workspace number $wsc
+
+# move focused container to workspace
+bindsym $mod+$smod+1 				move container to workspace number $ws1 ;  workspace number $ws1
+bindsym $mod+$smod+2 				move container to workspace number $ws2 ;  workspace number $ws2
+bindsym $mod+$smod+3 				move container to workspace number $ws3 ;  workspace number $ws3
+bindsym $mod+$smod+4 				move container to workspace number $ws4 ;  workspace number $ws4
+bindsym $mod+$smod+z 				move container to workspace number $wsz ;  workspace number $wsz 
+bindsym $mod+$smod+x 				move container to workspace number $wsx ;  workspace number $wsx
+bindsym $mod+$smod+c 				move container to workspace number $wsc ;  workspace number $wsc
+
+workspace_auto_back_and_forth no
+focus_on_window_activation smart
+
+# reload the configuration file
+# bindsym $mod+$smod+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+$smod+r restart
+# exit i3 (logs you out of your X session)
+# bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Preessing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym $left 			resize shrink width 10 px or 10 ppt
+        bindsym $down 			resize grow height 10 px or 10 ppt
+        bindsym $up   			resize shrink height 10 px or 10 ppt
+        bindsym $right			resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+
+
+
+
+
+# i would like the bar manually shown on middle. like rofi. 
+bar {
+	id bar-1
+	mode hide
+	position bottom
+	hidden_state hide
+	modifier $mod
+        status_command i3status top
+	#bindsym --release button3 exec --no-startup-id import /tmp/latest-screenshot.png
+	colors {
+		# bar background color
+	        background $bg
+	        # text color used for blocks that do not have a color specified.
+	        statusline $yellow
+	        # workspaces section            
+	        #                    border  backgr. text
+	        focused_workspace    $aqua $aqua $darkgray
+	        inactive_workspace   $darkgray $darkgray $yellow
+	        active_workspace     $darkgray $darkgray $yellow
+	        urgent_workspace     $red $red $bg
+    }
+
+}
+
+
+
+#start of window title bars & borders section
+
+# green gruvbox
+# class                 border|backgr|text|indicator|child_border
+#client.focused          $green $green $darkgray $purple $darkgray
+#client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+#client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+#client.urgent           $red $red $white $red $red
+
+# blue gruvbox
+# class                 border|backgr|text|indicator|child_border
+#client.focused          $blue $blue $darkgray $purple $darkgray
+#client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+#client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+#client.urgent           $red $red $white $red $red
+
+#end of window title bars & borders section
