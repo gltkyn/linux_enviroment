@@ -1,0 +1,331 @@
+# bendcod $mod+40 exec "rofi -modi drun,run -show drun"
+# font ttf-hack-nerd 13
+# i3 configuration of gltkyn
+
+###  bindsym --whole-window $mod+button2     kill
+
+
+##############
+### CONSTS ###
+##############
+
+set $mod   Mod4
+set $smod  Mod4 + Shift
+
+set $fullscreen             f
+set $down                   j
+set $left                   h
+set $right                  l
+# set $terminal              st -f "Liberation Mono:size=12"
+set $up                     k
+set $window_default         e
+set $window_parent          a
+set $window_stack           s
+set $window_tabbed          w
+set $wm_setting_default     e
+set $wm_setting_fullscreen  f
+set $wm_setting_parent      a
+set $wm_setting_resize      r
+set $wm_setting_stack       s
+set $wm_setting_tabbed      w
+
+# set $wm_setting_font  pango:Source Sans Pro, Semibold 11
+set $wm_setting_font  pango:Hack Nerd Font 11
+
+# set $terminal  st
+set $terminal  alacritty
+set $browser   qutebrowser
+
+set $ws0  "0"
+set $ws1  "1"
+set $ws2  "2"
+set $ws3  "3"
+set $ws4  "4"
+set $ws5  "5"
+set $ws6  "6"
+set $ws7  "7"
+set $ws8  "8"
+set $ws9  "9"
+
+
+##############
+### Colors ###
+##############
+
+set $rosewater  #f5e0dc
+set $flamingo   #f2cdcd
+set $pink       #f5c2e7
+set $mauve      #cba6f7
+set $red        #f38ba8
+set $maroon     #eba0ac
+set $peach      #fab387
+set $yellow     #f9e2af
+set $green      #a6e3a1
+set $teal       #94e2d5
+set $sky        #89dceb
+set $sapphire   #74c7ec
+set $blue       #89b4fa
+set $lavender   #b4befe
+set $text       #cdd6f4
+set $subtext1   #bac2de
+set $subtext0   #a6adc8
+set $overlay2   #9399b2
+set $overlay1   #7f849c
+set $overlay0   #6c7086
+set $surface2   #585b70
+set $surface1   #45475a
+set $surface0   #313244
+set $base       #1e1e2e
+set $mantle     #181825
+set $crust      #11111b
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+# ### Colors #### class border background text indicator child_border
+# client.focused $wm_color_border_active_bg $wm_color_border_active_bg $wm_color_border_active_fg $wm_color_border_active_bg $wm_color_border_active_bg
+# client.focused_inactive $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+# client.unfocused $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+# client.urgent $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+# client.placeholder $wm_color_border_inactive_bg $wm_color_border_inactive_bg $wm_color_border_inactive_fg $wm_color_border_inactive_bg $wm_color_border_inactive_bg
+# client.background $wm_color_background
+
+
+###########################
+### Window / Workspace  ###
+### Navigation          ###
+###########################
+
+# Move focus between windows
+bindsym $mod+$down   focus down
+bindsym $mod+$left   focus left
+bindsym $mod+$right  focus right
+bindsym $mod+$up     focus up
+
+# Move windows around
+bindsym $smod+$down   move down
+bindsym $smod+$left   move left
+bindsym $smod+$right  move right
+bindsym $smod+$up     move up
+
+bindsym $mod+a   focus parent
+bindsym $smod+a  focus child
+
+# Switch to workspace
+bindsym $mod+quotedbl  workspace number $ws0
+bindsym $mod+1         workspace number $ws1
+bindsym $mod+2         workspace number $ws2
+bindsym $mod+3         workspace number $ws3
+bindsym $mod+4         workspace number $ws4
+bindsym $mod+5         workspace number $ws5
+bindsym $mod+6         workspace number $ws6
+bindsym $mod+7         workspace number $ws7
+bindsym $mod+8         workspace number $ws8
+bindsym $mod+9         workspace number $ws9
+
+# Move window to workspace and follow
+bindsym $smod+quotedbl  move container to workspace number $ws0 ;  workspace number $ws0
+bindsym $smod+1         move container to workspace number $ws1 ;  workspace number $ws1
+bindsym $smod+2         move container to workspace number $ws2 ;  workspace number $ws2
+bindsym $smod+3         move container to workspace number $ws3 ;  workspace number $ws3
+bindsym $smod+4         move container to workspace number $ws4 ;  workspace number $ws4
+bindsym $smod+5         move container to workspace number $ws5 ;  workspace number $ws5
+bindsym $smod+6         move container to workspace number $ws6 ;  workspace number $ws6
+bindsym $smod+7         move container to workspace number $ws7 ;  workspace number $ws7
+bindsym $smod+8         move container to workspace number $ws8 ;  workspace number $ws8
+bindsym $smod+9         move container to workspace number $ws9 ;  workspace number $ws9
+
+workspace_auto_back_and_forth no
+
+
+##################################
+### Window Management / Layout ###
+##################################
+
+bindsym $smod+d      kill
+bindsym --whole-window $mod+button2  kill
+
+bindsym $smod+space  floating toggle
+bindsym $mod+space   focus mode_toggle
+bindsym $mod+f       fullscreen toggle
+bindsym $mod+e       layout toggle split
+bindsym $mod+w       layout tabbed
+# bindsym $mod+s     layout stacking
+bindsym $mod+v       split toggle
+
+# sticky floating "always on top" placement
+bindsym $mod+y  fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 870 25
+
+# Resizing by 1px/1ppt
+bindsym $mod+control+$right  resize grow width 1 px or 1 ppt
+bindsym $mod+control+$left   resize shrink width 1 px or 1 ppt
+bindsym $mod+control+$up     resize shrink height 1 px or 1 ppt
+bindsym $mod+control+$down   resize grow height 1 px or 1 ppt
+
+default_floating_border pixel 2
+default_orientation auto
+for_window [class=".*"] border pixel 3
+
+floating_maximum_size -1 x -1
+floating_minimum_size 75 x 50
+floating_modifier $mod
+focus_follows_mouse yes
+focus_on_window_activation smart
+gaps inner 5
+gaps outer 13
+no_focus [window_role="pop-up"]
+popup_during_fullscreen smart
+smart_borders on
+smart_gaps on
+font $wm_setting_font
+
+
+############################
+### Apps & Launchers     ###
+############################
+
+bindsym $mod+Return    exec --no-startup-id $terminal
+bindsym $mod+t         exec --no-startup-id $terminal
+bindsym mod1+shift+t   exec --no-startup-id $terminal --class floating_alacritty -e tmux
+
+bindsym $mod+b         exec --no-startup-id $browser
+bindsym $smod+Return   exec --no-startup-id $browser
+
+bindsym $mod+d  exec --no-startup-id "rofi -modi drun,run -show drun"
+bindsym $mod+z  exec --no-startup-id rofi -show blezz -modi blezz -auto-select -matching normal -blezz-config ~/.config/blezz/main.config
+
+bindsym $mod+x  exec --no-startup-id /home/$USER/.config/scripts/lock
+
+
+##################################
+### Media, Audio & Brightness  ###
+##################################
+
+bindsym XF86AudioPlay   exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause  exec --no-startup-id playerctl pause
+bindsym XF86AudioStop   exec --no-startup-id playerctl stop
+bindsym XF86AudioNext   exec --no-startup-id playerctl next
+bindsym XF86AudioPrev   exec --no-startup-id playerctl previous
+
+bindsym XF86AudioLowerVolume  exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 3%-
+bindsym XF86AudioRaiseVolume  exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 4%+
+bindsym XF86AudioMute         exec --no-startup-id wpctl set-sink-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute      exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@
+
+bindsym XF86MonBrightnessDown  exec --no-startup-id brightnessctl set 4%-
+bindsym XF86MonBrightnessUp    exec --no-startup-id brightnessctl set +4%
+
+# Screen Rotation
+bindsym $mod+Up     exec --no-startup-id xrandr --output eDP-1 --rotate normal
+bindsym $mod+Down   exec --no-startup-id xrandr --output eDP-1 --rotate inverted
+bindsym $mod+Right  exec --no-startup-id xrandr --output eDP-1 --rotate right
+bindsym $mod+Left   exec --no-startup-id xrandr --output eDP-1 --rotate left
+
+
+#####################
+### Screenshots   ###
+#####################
+
+exec_always --no-startup-id xmodmap -e "keycode 84 = Down"
+
+bindsym --release Print         exec --no-startup-id escrotum --select --clipboard
+bindsym --release Shift+Print   exec --no-startup-id escrotum --clipboard
+bindsym --release $mod+m        exec --no-startup-id scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f'
+bindsym --release $mod+Shift+m  exec --no-startup-id "scrot ~/Pictures/screenshots/custom/$(date +%F-%H%M%S).png -s -e 'xclip -selection c -t image/png < $f' ; notify-send 'Screenshot (custom) saved' -t 1"
+bindsym --release $mod+p        exec --no-startup-id import /tmp/latest-screenshot.png
+
+# this is my update of that
+#
+# #Take screenshot, save in a folder and copy to clipboard:
+#
+# \bindsym Print exec scrot ~/Pictures/Screenshots/scrot_%F.png && xclip -selection clipboard -t image/png -i \ls -t ~/Pictures/Screenshots/* | head -n1
+#
+# #Take select screenshot, save in a folder and copy to clipboard
+#
+# \bindsym $mod+Print exec scrot -s ~/Pictures/Screenshots/scrot_%F.png -e 'xclip -selection clipboard -t image/png -i $f'
+
+
+############################
+### System / Session     ###
+############################
+
+bindsym $smod+q  exec --no-startup-id "i3-msg exit"
+# bindsym $smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $smod+r  restart
+# bindsym $smod+c reload
+
+bindsym $mod+s   exec --no-startup-id bluetoothctl connect C4:16:88:A2:DA:D2
+bindsym $smod+s  exec --no-startup-id bluetoothctl disconnect C4:16:88:A2:DA:D2
+
+bindsym $mod+c   exec --no-startup-id caffeinate
+bindsym $smod+c  exec --no-startup-id pkill caffeinate
+
+bindsym $mod+Shift+ç  exec --no-startup-id ~/.local/bin/toggle_alastor.sh
+bindsym XF86Launch1   exec --no-startup-id ~/bin/diary-entry.sh
+
+
+##########################
+### Window Rules       ###
+##########################
+
+for_window [instance="floating_alacritty"] floating enable
+
+# Desktop Pet Rules
+for_window [instance="rust_pet"] floating enable
+for_window [instance="rust_pet"] border none
+for_window [instance="rust_pet"] sticky enable
+for_window [instance="rust_pet"] no_focus
+
+# This catches most Wine games and forces them to float
+for_window [id="wine"] floating enable
+for_window [instance="wine"] floating enable
+
+for_window [title="letter-pet"] floating enable, border none, sticky enable, focus disabled
+for_window [instance="diary-float"] floating enable, resize set 700 500, move position center
+
+
+##########################
+### Start Applications ###
+##########################
+
+# exec_always feh --bg-fill --randomize .Wallpaper/*
+# exec_always feh --bg-fill ~/.Wallpaper/animals/matthew-stephenson--wtTtc3KAAU-unsplash.jpg
+exec_always --no-startup-id feh --bg-fill ~/.Wallpaper/peng
+exec_always --no-startup-id setxkbmap -option caps:escape_shifted_capslock
+exec --no-startup-id pgrep -x unclutter || unclutter -idle 3
+exec --no-startup-id pgrep -x remind || remind -z5 ~/.config/remind/reminders.rem
+exec --no-startup-id adb start-server
+exec --no-startup-id pgrep -x startpage || ~/Projects/Rust/startpage/target/release/startpage
+# exec_always wall .Wallpaper/*
+# exec_always xss-lock --transfer-sleep-lock -- i3lock --nofork
+# exec_always picom -f
+
+
+##############
+### i3bar  ###
+##############
+
+bar {
+    font $wm_setting_font
+    # position bottom
+    status_command i3status-rs /etc/i3/status-rs/config.toml
+    height 21
+
+    colors {
+        background         $base
+        statusline         $text
+        focused_statusline $text
+        focused_separator  $base
+
+        # target           border bg        text
+        focused_workspace  $base  $mauve    $crust
+        active_workspace   $base  $surface2 $text
+        inactive_workspace $base  $base     $text
+        urgent_workspace   $base  $red      $crust
+    }
+}
